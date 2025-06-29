@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "firebase-esp32": "https://github.com/mobizt/Firebase-ESP32.git"
-  }
-}
