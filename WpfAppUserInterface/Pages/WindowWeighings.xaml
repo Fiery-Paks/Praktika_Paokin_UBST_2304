@@ -102,9 +102,10 @@
                   Margin="0,0,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding WeighingId}" Width="Auto"/>
-                <DataGridTextColumn Header="Весы" Binding="{Binding ScaleId}" Width="Auto"/>
-                <DataGridTextColumn Header="Клиент" Binding="{Binding ClientId}" Width="Auto"/>
+                <DataGridTextColumn Header="Весы" Binding="{Binding Scale.Model}" Width="Auto"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.Name}" Width="Auto"/>
                 <DataGridTextColumn Header="Номер ТС" Binding="{Binding VehicleNumber}" Width="120"/>
+                <DataGridTextColumn Header="Тип ТС" Binding="{Binding TypeVehicle.Name}" Width="120"/>
                 <DataGridTextColumn Header="Вес брутто" Binding="{Binding GrossWeight}" Width="Auto"/>
                 <DataGridTextColumn Header="Вес тары" Binding="{Binding TareWeight}" Width="Auto"/>
                 <DataGridTextColumn Header="Дата/время" Binding="{Binding WeighingDateTime}" Width="150"/>

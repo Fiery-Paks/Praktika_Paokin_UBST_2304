@@ -44,7 +44,7 @@ int start_range1 = 2000 * coef;
 int start_range2 = 3000 * coef;
 int max_range = 4000 * coef;
 
-// Диапазоны
+
 int range1 = start_range1;
 int range2 = start_range2;
 

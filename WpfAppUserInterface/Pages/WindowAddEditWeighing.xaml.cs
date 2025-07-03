@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using WpfAppUserInterface.ModelData;
 using WpfAppUserInterface.Classes;
+using Microsoft.ML;
+using WpfAppUserInterface.Classes.LerningModel;
 
 namespace WpfAppUserInterface.Pages
 {
@@ -10,6 +12,7 @@ namespace WpfAppUserInterface.Pages
     public partial class WindowAddEditWeighing : Window
     {
         private readonly BridgeScalesContext _context;
+        private PredictionEngine<VehicleData, VehiclePrediction> predictionEngine;
         private Weighing _weighing { get; set; }
         private Scale _scaling { get; set; }
         private SensorData _sensor { get; set; }
@@ -17,6 +20,11 @@ namespace WpfAppUserInterface.Pages
         public WindowAddEditWeighing(BridgeScalesContext context)
         {
             _context = context;
+            // Загрузка модели
+            var mlContext = new MLContext();
+            var model = mlContext.Model.Load("vehicle_classifier_mlnet.zip", out var schema);
+            predictionEngine = mlContext.Model.CreatePredictionEngine<VehicleData, VehiclePrediction>(model);
+
             _weighing = new Weighing { WeighingDateTime = DateTime.Now };
             DataContext = this;
             InitializeComponent();
@@ -56,7 +64,12 @@ namespace WpfAppUserInterface.Pages
                 return;
             }
 
-            _weighing.TareWeight = Convert.ToInt32(TareWeightTextBox.Text);
+            int tareweight = Convert.ToInt32(TareWeightTextBox.Text);
+
+            _weighing.TypeVehicleId =
+            (int)predictionEngine.Predict(new VehicleData(_sensor.weight, tareweight)).PredictedLabel;
+
+            _weighing.TareWeight = tareweight;
             _weighing.VehicleNumber = VehicleNumberTextBox.Text;
             _weighing.ClientId = (int)ClientComboBox.SelectedValue;
             _weighing.ScaleId = (int)ScaleComboBox.SelectedValue;

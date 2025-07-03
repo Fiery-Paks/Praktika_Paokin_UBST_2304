@@ -24,6 +24,7 @@ namespace WpfAppUserInterface.Pages
                     .Include(w => w.Client)
                     .Include(w => w.Operator)
                     .Include(w => w.Scale)
+                    .Include(w => w.TypeVehicle)
                     .Load();
 
                 WeighingsDataGrid.ItemsSource = _context.Weighings.Local.ToObservableCollection();

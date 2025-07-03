@@ -13,6 +13,8 @@ public partial class Weighing
 
     public string? VehicleNumber { get; set; }
 
+    public int? TypeVehicleId { get; set; }
+
     public decimal? GrossWeight { get; set; }
 
     public decimal? TareWeight { get; set; }
@@ -28,4 +30,6 @@ public partial class Weighing
     public virtual User Operator { get; set; } = null!;
 
     public virtual Scale Scale { get; set; } = null!;
+
+    public virtual TypeVehicle? TypeVehicle { get; set; }
 }

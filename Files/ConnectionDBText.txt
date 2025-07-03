@@ -1,1 +1,2 @@
 Scaffold-DbContext "Data Source=.\SQLEXPRESS;Initial Catalog=BridgeScales;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelData
+Properties.Resources.SQLConnection

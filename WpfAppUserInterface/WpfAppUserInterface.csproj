@@ -9,16 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ModelData\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FirebaseDatabase.net" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.ML" Version="4.0.2" />
+    <PackageReference Include="Microsoft.ML.LightGbm" Version="4.0.2" />
+    <PackageReference Include="XGBoost" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,12 +21,14 @@ public partial class BridgeScalesContext : DbContext
 
     public virtual DbSet<Scale> Scales { get; set; }
 
+    public virtual DbSet<TypeVehicle> TypeVehicles { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Weighing> Weighings { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-       => optionsBuilder.UseSqlServer(Properties.Resources.SQLConnection);
+        => optionsBuilder.UseSqlServer(Properties.Resources.SQLConnection);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -77,6 +79,17 @@ public partial class BridgeScalesContext : DbContext
             entity.Property(e => e.SerialNumber).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<TypeVehicle>(entity =>
+        {
+            entity.HasKey(e => e.TypeId).HasName("PK_Type");
+
+            entity.ToTable("TypeVehicle");
+
+            entity.Property(e => e.TypeId).HasColumnName("TypeID");
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Name).HasMaxLength(70);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACE7AF57F1");
@@ -102,6 +115,7 @@ public partial class BridgeScalesContext : DbContext
             entity.Property(e => e.OperatorId).HasColumnName("OperatorID");
             entity.Property(e => e.ScaleId).HasColumnName("ScaleID");
             entity.Property(e => e.TareWeight).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.TypeVehicleId).HasColumnName("TypeVehicleID");
             entity.Property(e => e.VehicleNumber).HasMaxLength(20);
             entity.Property(e => e.WeighingDateTime)
                 .HasDefaultValueSql("(getdate())")
@@ -120,6 +134,10 @@ public partial class BridgeScalesContext : DbContext
                 .HasForeignKey(d => d.ScaleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Weighings_Scale");
+
+            entity.HasOne(d => d.TypeVehicle).WithMany(p => p.Weighings)
+                .HasForeignKey(d => d.TypeVehicleId)
+                .HasConstraintName("FK_Weighings_TypeVehicle");
         });
 
         OnModelCreatingPartial(modelBuilder);
